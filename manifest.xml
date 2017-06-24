@@ -1,0 +1,6 @@
+<package>
+  <export>
+    <nodelet plugin="${prefix}/plugins/nodelet_plugins.xml" />
+  </export>
+</package>
+

@@ -1,0 +1,25 @@
+<launch>
+    <node
+            pkg="kobuki_node"
+            type="turtlesim_node"
+            name="turtlesim"
+            respawn="true"
+    />
+    <node
+            pkg="turtlesim"
+            type="turtle_teleop_key"
+            name="teleop_key"
+            required="true"
+            launch-prefix="xterm -e"
+    />
+    <node
+            pkg="agitr"
+            type="subpose"
+            name="pose_subscriber"
+            output="screen"
+    />
+</launch>
+<!--
+        roslaunch turtlebot_teleop keyboard_teleop.launch
+        roslaunch kobuki_node minimal.launch --screen #
+-->
