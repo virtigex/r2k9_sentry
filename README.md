@@ -14,12 +14,6 @@
 
 ## Operation
 
-Start Kobuki Base in a terminal
-
-```
-kobuki
-```
-
 Start R2K9 sentry
 
 ```
