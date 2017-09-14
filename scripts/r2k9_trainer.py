@@ -10,8 +10,8 @@ import rospy
 #import tensorflow
 from shutil import copyfile
 from std_msgs.msg import String
-from r2k9.msg import TrainingReady
-from r2k9.msg import TrainingUpdate
+from r2k9_sentry.msg import TrainingReady
+from r2k9_sentry.msg import TrainingUpdate
 
 rospy.init_node('r2k9_trainer')
 pubAccouncer = rospy.Publisher('/r2k9/alert', TrainingUpdate, queue_size=10)
