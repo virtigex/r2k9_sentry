@@ -7,6 +7,7 @@ project(r2k9_sentry)
 # Find the catkin build system, and any other packages on which we depend.
 find_package(catkin REQUIRED COMPONENTS roscpp geometry_msgs std_srvs rosbag)
 find_package(Boost COMPONENTS filesystem system REQUIRED)
+find_package(sensor_msgs)
 find_package(message_generation)
 
 
@@ -16,6 +17,8 @@ set(CMAKE_CXX_FLAGS "-std=c++11" ${CMAKE_CXX_FLAGS})
 #catkin_python_setup()
 add_message_files(FILES TrainingReady.msg)
 add_message_files(FILES TrainingUpdate.msg)
+add_message_files(FILES ObjectDetection.msg)
+add_message_files(FILES DetectedObject.msg)
 generate_messages(DEPENDENCIES std_msgs)
 
 # Declare our catkin package.
