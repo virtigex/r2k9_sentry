@@ -20,7 +20,8 @@ import visualization_utils as vis_util
 import label_map_util
 
 CAMERA_ID = 0
-HEADLESS = True
+HEADLESS = False
+MAGNIFY = 4
 
 # What model to download.
 MODEL_NAME = 'ssd_mobilenet_v1_coco_11_06_2017'
@@ -87,6 +88,7 @@ bridge = CvBridge()
 def got_image(image):
     det = ObjectDetection()
     det.header = image.header
+    # TODO - fix image encoding
     image_np = bridge.imgmsg_to_cv2(image, desired_encoding="passthrough")
 
     # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
@@ -104,15 +106,7 @@ def got_image(image):
         [boxes, scores, classes, num_detections],
 
         feed_dict={image_tensor: image_np_expanded})
-    # Visualization of the results of a detection.
-#    vis_util.visualize_boxes_and_labels_on_image_array(
-#        image_np,
-#        np.squeeze(boxes),
-#        np.squeeze(classes).astype(np.int32),
-#        np.squeeze(scores),
-#        category_index,
-#        use_normalized_coordinates=True,
-#        line_thickness=8)
+
     min_score_thresh = .5
     labels = []
     s = np.squeeze(scores)
@@ -127,7 +121,17 @@ def got_image(image):
             det.objects.append(obj)
 
     if not HEADLESS:
-        cv2.imshow("R2K9 vision", image_np)
+        # Visualization of the results of a detection.
+        display_img = np.copy(image_np)
+        height, width, channels = display_img.shape
+        vis_util.visualize_boxes_and_labels_on_image_array(
+            display_img,
+            b, c, s,
+            category_index,
+            use_normalized_coordinates=True,
+            line_thickness=2)
+        mag_size = ( MAGNIFY * width, MAGNIFY * height)
+        cv2.imshow("R2K9 vision", cv2.resize(display_img, mag_size))
         cv2.waitKey(3)
     rospy.loginfo(' '.join(labels))
     pubAccouncer.publish(det)
