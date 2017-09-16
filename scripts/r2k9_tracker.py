@@ -31,11 +31,13 @@ DOWNLOAD_BASE = 'http://download.tensorflow.org/models/object_detection/'
 PATH_TO_CKPT = MODEL_NAME + '/frozen_inference_graph.pb'
 
 # List of the strings that is used to add correct label for each box.
-PATH_TO_LABELS = os.path.join('data', 'mscoco_label_map.pbtxt')
+DOWNLOAD_LABELS='https://raw.githubusercontent.com/tensorflow/models/master/object_detection/data/mscoco_label_map.pbtxt'
+#PATH_TO_LABELS = os.path.join('data', 'mscoco_label_map.pbtxt')
+PATH_TO_LABELS = os.path.join('mscoco_label_map.pbtxt')
 
 NUM_CLASSES = 90
 
-# ## Download Model
+# Download Model
 if not os.path.isfile(MODEL_FILE):
     print('download model')
     opener = urllib.request.URLopener()
@@ -47,7 +49,12 @@ if not os.path.isfile(MODEL_FILE):
             tar_file.extract(file, os.getcwd())
 else:
     print('using cached model')
-# download_model()
+
+# download labels
+if not os.path.isfile(PATH_TO_LABELS):
+    print('download labels')
+    opener = urllib.request.URLopener()
+    opener.retrieve(DOWNLOAD_LABELS, PATH_TO_LABELS)
 
 # ## Load a (frozen) Tensorflow model into memory.
 print('loading model')
@@ -114,16 +121,15 @@ def got_image(image):
     for i in range(b.shape[0]):
         if s is None or s[i] > min_score_thresh:
             obj = DetectedObject()
-            labels.append(category_index[c[i]]['name'])
+            object_name = category_index[c[i]]['name']
+            obj.name = object_name
+            labels.append(object_name)
+            det.objects.append(obj)
 
     if not HEADLESS:
         cv2.imshow("R2K9 vision", image_np)
         cv2.waitKey(3)
     rospy.loginfo(' '.join(labels))
-    #obj = DetectedObject()
-    #det.objects.append(obj)
-    #obj = DetectedObject()
-    #det.objects.append(obj)
     pubAccouncer.publish(det)
 
 def int_handler(signal, frame):
