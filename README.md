@@ -19,7 +19,13 @@ To start object detection:
 rosrun r2k9_sentry r2k9_tracker.py _headless:=True
 ```
 If you set `_headless` to `False` the image and detection boxes will
-be displayed on the screen.
+be displayed on the screen. You can also specify the private parameter
+`_magnify' to make the display bigger.
+```
+rosrun r2k9_sentry r2k9_tracker.py _headless:=False _magnify:=2
+```
+
+
 
 See object detection messages:
 ```

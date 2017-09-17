@@ -24,7 +24,7 @@ pubAccouncer = rospy.Publisher('/r2k9/detect', ObjectDetection, queue_size=10)
 bridge = CvBridge()
 
 HEADLESS = rospy.get_param('~headless', True)
-MAGNIFY = 4
+MAGNIFY = rospy.get_param('~magnify', 1)
 
 # What model to download.
 MODEL_NAME = 'ssd_mobilenet_v1_coco_11_06_2017'
