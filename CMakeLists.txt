@@ -19,7 +19,7 @@ add_message_files(FILES TrainingReady.msg)
 add_message_files(FILES TrainingUpdate.msg)
 add_message_files(FILES ObjectDetection.msg)
 add_message_files(FILES DetectedObject.msg)
-generate_messages(DEPENDENCIES std_msgs)
+generate_messages(DEPENDENCIES std_msgs sensor_msgs)
 
 # Declare our catkin package.
 catkin_package(

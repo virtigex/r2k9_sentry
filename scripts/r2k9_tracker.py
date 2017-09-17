@@ -89,7 +89,11 @@ def got_image(image):
     det = ObjectDetection()
     det.header = image.header
     # TODO - fix image encoding
-    image_np = bridge.imgmsg_to_cv2(image, desired_encoding="passthrough")
+    # desired_encoding="passthrough" gave me blue skin
+    image_np = bridge.imgmsg_to_cv2(image, desired_encoding="bgr8")
+    height, width, channels = image_np.shape
+    det.height = height
+    det.width = width
 
     # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
     image_np_expanded = np.expand_dims(image_np, axis=0)
@@ -104,10 +108,10 @@ def got_image(image):
     # Actual detection.
     (boxes, scores, classes, num_detections) = sess.run(
         [boxes, scores, classes, num_detections],
-
         feed_dict={image_tensor: image_np_expanded})
 
-    min_score_thresh = .5
+    print('width', width, 'height', height)
+    min_score_thresh = .4
     labels = []
     s = np.squeeze(scores)
     b = np.squeeze(boxes)
@@ -116,7 +120,13 @@ def got_image(image):
         if s is None or s[i] > min_score_thresh:
             obj = DetectedObject()
             object_name = category_index[c[i]]['name']
+            ypmin, xpmin, ypmax, xpmax = tuple(b[i].tolist())
+
             obj.name = object_name
+            obj.xmin = xpmin
+            obj.xmax = xpmax
+            obj.ymin = ypmin
+            obj.ymax = ypmax
             labels.append(object_name)
             det.objects.append(obj)
 
