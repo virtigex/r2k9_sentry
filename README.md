@@ -10,9 +10,23 @@
 * Change passwords for login, Wi-Fi and x11nvc.
 * sudo apt install openssh-server git screen python-pip exfat-fuse exfat-utils speech-dispatcher
 * pip install --upgrade pip
-* pip install tensorflow
+* pip install -r requirements.txt
 
-## Operation
+## Object Detection  Operation
+
+To start object detection:
+```
+rosrun r2k9_sentry r2k9_tracker.py _headless:=True
+```
+If you set `_headless` to `False` the image and detection boxes will
+be displayed on the screen.
+
+See object detection messages:
+```
+rostopic echo /r2k9/detect
+```
+
+## Sentry Operation
 
 Start R2K9 sentry
 

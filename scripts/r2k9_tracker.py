@@ -19,8 +19,11 @@ from r2k9_sentry.msg import ObjectDetection, DetectedObject
 import visualization_utils as vis_util
 import label_map_util
 
-CAMERA_ID = 0
-HEADLESS = False
+rospy.init_node('r2k9_tracker')
+pubAccouncer = rospy.Publisher('/r2k9/detect', ObjectDetection, queue_size=10)
+bridge = CvBridge()
+
+HEADLESS = rospy.get_param('~headless', True)
 MAGNIFY = 4
 
 # What model to download.
@@ -80,10 +83,6 @@ print(category_index)
 
 def_graph = detection_graph.as_default()
 sess = tf.Session(graph=detection_graph)
-
-rospy.init_node('r2k9_tracker')
-pubAccouncer = rospy.Publisher('/r2k9/detect', ObjectDetection, queue_size=10)
-bridge = CvBridge()
 
 def got_image(image):
     det = ObjectDetection()
