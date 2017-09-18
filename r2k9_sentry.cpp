@@ -122,7 +122,7 @@ R2k9Control::R2k9Control()
   subImage_ = nh_.subscribe(TOPIC_IMAGE, 1000, &R2k9Control::imageCallback, this);
   vel_pub_ = nh_.advertise<geometry_msgs::Twist>(TOPIC_VELOCITY, 1);
   motor_pub_ = nh_.advertise<kobuki_msgs::MotorPower>(TOPIC_MOTOR, 1);
-  training_pub_ = nh_.advertise<r2k9::TrainingReady>(TOPIC_TRAINING, 1);
+  training_pub_ = nh_.advertise<r2k9_sentry::TrainingReady>(TOPIC_TRAINING, 1);
   person_present_ = false;
   stationary_ = true;
   recording_ = false;
@@ -273,7 +273,7 @@ void R2k9Control::recordingStop()
     recording_ = false;
     bag_.close();
     std::rename(recordFileStaging_.c_str(), recordFile_.c_str());
-    r2k9::TrainingReady msg;
+    r2k9_sentry::TrainingReady msg;
 
     msg.location = recordFile_;
     msg.host = getIPV4Address();
