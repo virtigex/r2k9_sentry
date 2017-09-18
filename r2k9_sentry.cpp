@@ -25,7 +25,7 @@
 //
 // ROS messages
 //
-#include "r2k9/TrainingReady.h"
+#include "r2k9_sentry/TrainingReady.h"
 
 #include "boost/program_options.hpp"
 #include "boost/filesystem.hpp"

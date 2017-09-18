@@ -109,7 +109,6 @@ def got_image(image):
         [boxes, scores, classes, num_detections],
         feed_dict={image_tensor: image_np_expanded})
 
-    print('width', width, 'height', height)
     min_score_thresh = .4
     labels = []
     s = np.squeeze(scores)
@@ -128,6 +127,8 @@ def got_image(image):
             obj.ymax = ypmax
             labels.append(object_name)
             det.objects.append(obj)
+    rospy.loginfo(' '.join(labels))
+    pubAccouncer.publish(det)
 
     if not HEADLESS:
         # Visualization of the results of a detection.
@@ -142,8 +143,6 @@ def got_image(image):
         mag_size = ( MAGNIFY * width, MAGNIFY * height)
         cv2.imshow("R2K9 vision", cv2.resize(display_img, mag_size))
         cv2.waitKey(3)
-    rospy.loginfo(' '.join(labels))
-    pubAccouncer.publish(det)
 
 def int_handler(signal, frame):
     print('shutting down')
