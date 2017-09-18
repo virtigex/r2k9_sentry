@@ -14,6 +14,8 @@
 
 ## Object Detection  Operation
 
+![Object Detection](images/couch-microwave-person.png?raw=true "R2K9 Object Detection")
+
 To start object detection:
 ```
 rosrun r2k9_sentry r2k9_tracker.py _headless:=True
