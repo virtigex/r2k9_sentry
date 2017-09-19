@@ -121,6 +121,7 @@ def got_image(image):
             ypmin, xpmin, ypmax, xpmax = tuple(b[i].tolist())
 
             obj.name = object_name
+            obj.score = s[i]
             obj.xmin = xpmin
             obj.xmax = xpmax
             obj.ymin = ypmin
