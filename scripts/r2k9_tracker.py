@@ -86,7 +86,7 @@ sess = tf.Session(graph=detection_graph)
 
 def got_image(image):
     det = ObjectDetection()
-    det.header = image.header
+    det.image = image
     # TODO - fix image encoding
     # desired_encoding="passthrough" gave me blue skin
     image_np = bridge.imgmsg_to_cv2(image, desired_encoding="bgr8")
@@ -128,6 +128,7 @@ def got_image(image):
             obj.ymax = ypmax
             labels.append(object_name)
             det.objects.append(obj)
+    labels.insert(0, str(det.image_seq))
     rospy.loginfo(' '.join(labels))
     pubAccouncer.publish(det)
 

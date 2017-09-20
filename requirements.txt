@@ -1,3 +1,4 @@
 tensorflow
 opencv-python
+python-firebase
 

@@ -39,7 +39,7 @@ rostopic echo /r2k9/detect
 Start R2K9 sentry
 
 ```
-rosrun r2k9 r2k9_sentry
+rosrun r2k9_sentry r2k9_sentry
 ```
 Control-C (SIGINT) to exit.
 

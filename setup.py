@@ -6,7 +6,7 @@ from catkin_pkg.python_setup import generate_distutils_setup
 
 # fetch values from package.xml
 setup_args = generate_distutils_setup(
-  packages=['r2k9>'],
+  packages=['r2k9_sentry>'],
   package_dir={'': 'include'},
 )
 setup(**setup_args)
