@@ -1,2 +1,0 @@
-string neural_net
-
