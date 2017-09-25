@@ -31,9 +31,9 @@ catkin_package(
 include_directories(include ${catkin_INCLUDE_DIRS})
 
 # Declare the executable, along with its source files.
-add_executable(r2k9_sentry r2k9_sentry.cpp utils.cpp)
-add_dependencies(r2k9_sentry ${catkin_EXPORTED_TARGETS})
+#add_executable(r2k9_sentry r2k9_sentry.cpp utils.cpp)
+#add_dependencies(r2k9_sentry ${catkin_EXPORTED_TARGETS})
 
 # Specify libraries against which to link.
-target_link_libraries(r2k9_sentry ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${rosbag_LIBRARIES} )
+#target_link_libraries(r2k9_sentry ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${rosbag_LIBRARIES} )
 
